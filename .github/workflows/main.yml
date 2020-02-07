@@ -23,6 +23,7 @@ jobs:
           record: true
           start: yarn test:e2e:ci
           wait-on: "http://localhost:3000"
+          cache-key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
       - name: Unit tests
