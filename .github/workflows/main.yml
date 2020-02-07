@@ -9,7 +9,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Cypress run
-        uses: cypress-io/github-action@v1
+        uses: kevinold/github-action@v1
         with:
           record: true
           start: yarn test:e2e:ci
