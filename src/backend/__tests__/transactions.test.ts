@@ -248,4 +248,30 @@ describe("Transactions", () => {
     expect(secondWithdrawal.type).toBe(BankTransferType.withdrawal);
     expect(secondWithdrawal.amount).toBe(50000);
   });
+
+  it("should create a deposit (bank transfer) from pay app balance", () => {
+    const sender: User = getAllUsers()[0];
+    //const senderBankAccount = getBankAccountsByUserId(sender.id)[0];
+
+    // transactionIsBankDeposit()
+    // if source is empty and sender and receiver id's are the same === deposit transaction
+    const paymentDetails: TransactionPayload = {
+      source: "",
+      senderId: sender.id,
+      receiverId: sender.id, // UserId is receiver as well as sender
+      description: "Transfer Pay App Balance to Bank Account",
+      amount: 5000,
+      privacyLevel: DefaultPrivacyLevel.private,
+      status: TransactionStatus.pending
+    };
+
+    const transaction = createTransaction(
+      sender.id,
+      "transferDeposit",
+      paymentDetails
+    );
+    expect(transaction.id).toBeDefined();
+    expect(transaction.status).toEqual("pending");
+    expect(transaction.requestStatus).not.toBeDefined();
+  });
 });

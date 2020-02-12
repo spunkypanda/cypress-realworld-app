@@ -12,7 +12,8 @@ import {
   flatMap,
   curry,
   get,
-  constant
+  constant,
+  head
 } from "lodash/fp";
 import low from "lowdb";
 import FileSync from "lowdb/adapters/FileSync";
@@ -529,15 +530,20 @@ export const savePayAppBalance = curry((sender: User, balance: number) =>
   updateUserById(get("id", sender), { balance })
 );
 
+// TODO: User Setting to select default bank account?
+export const getUserDefaultBankAccount = (userId: string): BankAccount =>
+  flow(getBankAccountsByUserId, head)(userId);
+
 export const createTransaction = (
   userId: User["id"],
-  transactionType: "payment" | "request",
+  transactionType: "payment" | "request" | "transferDeposit",
   transactionDetails: TransactionPayload
 ): Transaction => {
   const sender = getUserById(userId);
   const transaction: Transaction = {
     id: shortid(),
     uuid: v4(),
+    // TODO: Store and send user default bank account with transactionDetails
     source: transactionDetails.source,
     amount: transactionDetails.amount,
     description: transactionDetails.description,
