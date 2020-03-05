@@ -75,12 +75,15 @@ router.get(
       transactions
     );
 
+    const hasNextPage = res.locals.paginate.hasNextPage;
+
     res.status(200);
     res.json({
       transactions: paginatedItems,
       page: res.locals.paginate.page,
       limit: res.locals.paginate.limit,
-      totalPages
+      totalPages,
+      hasNextPage
     });
   }
 );
