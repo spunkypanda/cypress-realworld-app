@@ -82,6 +82,7 @@
   },
   "devDependencies": {
     "cypress": "4.1.0",
+    "cypress-react-unit-test": "^2.4.3",
     "eslint-plugin-cypress": "2.10.3",
     "start-server-and-test": "1.10.9"
   },

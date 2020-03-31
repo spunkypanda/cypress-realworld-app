@@ -9,6 +9,7 @@
 // ***********************************************************
 
 const cypressTypeScriptPreprocessor = require("./cy-ts-preprocessor");
+const webpack = require('@cypress/webpack-preprocessor')
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -26,8 +27,31 @@ const defaultStructure = {
   users: []
 };
 
+const webpackOptions = {
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|mjs)$/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+          // plugins: ['@babel/plugin-proposal-class-properties'],
+        },
+      }
+    ]
+  }
+}
+
+const options = {
+  // send in the options from your webpack.config.js, so it works the same
+  // as your app's code
+  webpackOptions,
+  watchOptions: {}
+}
+
 module.exports = (on, config) => {
   on("file:preprocessor", cypressTypeScriptPreprocessor);
+  on('file:preprocessor', webpack(options));
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   on("task", {

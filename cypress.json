@@ -4,6 +4,10 @@
   "viewportHeight": 720,
   "viewportWidth": 1280,
   "env": {
-    "apiUrl": "http://localhost:3001"
+    "apiUrl": "http://localhost:3001",
+    "cypress-react-unit-test": {
+      "react": "node_modules/react/umd/react.development.js",
+      "react-dom": "node_modules/react-dom/umd/react-dom.development.js"
+    }
   }
 }
