@@ -1,6 +1,7 @@
 const _ = require("lodash");
 const Promise = require("bluebird");
 const axios = require("axios").default;
+const cypressTypeScriptPreprocessor = require("./cy-ts-preprocessor");
 
 require("dotenv").config();
 
@@ -10,6 +11,8 @@ module.exports = (on, config) => {
   config.env.mobileViewportWidth = process.env.MOBILE_VIEWPORT_WIDTH;
   config.env.isMobileViewport = config.viewportWidth < config.env.mobileViewportWidth;
   const baseApiUrl = process.env.BASE_API_URL;
+
+  on("file:preprocessor", cypressTypeScriptPreprocessor);
 
   on("task", {
     "db:seed"() {
@@ -55,6 +58,6 @@ module.exports = (on, config) => {
     },
   });
 
-  require("@cypress/code-coverage/task")(on, config);
+  // require("@cypress/code-coverage/task")(on, config);
   return config;
 };

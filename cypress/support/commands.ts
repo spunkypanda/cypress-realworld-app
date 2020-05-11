@@ -1,11 +1,5 @@
-// @ts-check
-/// <reference path="../global.d.ts" />
-
 import { pick } from "lodash/fp";
-import chaiDatetime from "chai-datetime";
 import { format as formatDate } from "date-fns";
-
-chai.use(chaiDatetime);
 
 const defaultPassword = Cypress.env("defaultPassword");
 
